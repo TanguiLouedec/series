@@ -1,13 +1,38 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Test</title>
-</head>
-<body>
+{% extends 'base.html.twig' %}
+
+{% block body %}
     <h1>Test</h1>
-</body>
-</html>
+    {# creation de la variable #}
+        {% set name = "John" %}
+    <h2>Hello {{ name }} !</h2>
+
+    {# creation de tableau #}
+        {% set colors = ['blue', 'pink', 'purple', 'green'] %}
+        {% for color in colors %}
+            <h1 style="color: {{ color }}"> {{ color }} </h1>
+        {% else %}
+            <p>No colors</p>
+        {% endfor %}
+
+        {# Manipulation objet #}
+        {% set serie = {
+            title : "Breaking bad",
+            year : 2008
+        } %}
+
+    <h3>{{ serie.title }}</h3>
+    <h4>{{ serie.year }}</h4>
+
+    {% for key, val in serie %}
+        <p>{{ key }} : {{ val }}</p>
+    {% endfor %}
+
+        {# filtres #}
+    <div>{{ name | upper }} : {{ name | length }} lettres</div>
+    <div>Colors : {{ colors | join('-') }}</div>
+    <div> {{ "now" | date('Y-m-d') }} </div>
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} | Test
+{% endblock %}
